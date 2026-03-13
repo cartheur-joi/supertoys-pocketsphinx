@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>Supertoys.PocketSphinx</AssemblyName>
+    <PackageId>Supertoys.PocketSphinx</PackageId>
+    <Version>1.0.3</Version>
+    <Authors>The Cartheur Team</Authors>
+    <Company>Cartheur Research</Company>
+    <Description>PocketSphinx parsing helpers for Supertoys deployments.</Description>
+    <PackageTags>PocketSphinx;Speech;Supertoys</PackageTags>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/cartheur-joi/supertoys-pocketsphinx</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/cartheur-joi/supertoys-pocketsphinx</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>supertoys.jpg</PackageIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="LICENSE" Pack="true" PackagePath="\" />
+    <None Include="supertoys.jpg" Pack="true" PackagePath="\" />
+  </ItemGroup>
+</Project>
