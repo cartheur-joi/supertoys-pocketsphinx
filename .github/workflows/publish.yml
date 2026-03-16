@@ -13,6 +13,8 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NUGET_TRUSTED_USER: ${{ vars.NUGET_USER || secrets.NUGET_USER || github.repository_owner }}
 
     steps:
       - name: Checkout
@@ -29,11 +31,19 @@ jobs:
       - name: Pack
         run: dotnet pack Supertoys.PocketSphinx.csproj -c Release --no-restore
 
+      - name: Validate trusted publishing user
+        run: |
+          if [ -z "${NUGET_TRUSTED_USER}" ]; then
+            echo "NUGET_USER is not set (vars/secrets) and repository_owner is empty."
+            exit 1
+          fi
+          echo "Using trusted publishing user: ${NUGET_TRUSTED_USER}"
+
       - name: NuGet login (Trusted Publishing)
         id: login
         uses: NuGet/login@v1
         with:
-          user: ${{ secrets.NUGET_USER || vars.NUGET_USER }}
+          user: ${{ env.NUGET_TRUSTED_USER }}
 
       - name: Push package
         run: dotnet nuget push bin/Release/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --skip-duplicate
