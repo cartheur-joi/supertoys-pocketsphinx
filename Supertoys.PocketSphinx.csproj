@@ -2,12 +2,13 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
     <AssemblyName>Supertoys.PocketSphinx</AssemblyName>
     <PackageId>Supertoys.PocketSphinx</PackageId>
-    <Version>1.0.3</Version>
+    <Version>1.2.0</Version>
     <Authors>The Cartheur Team</Authors>
     <Company>Cartheur Research</Company>
-    <Description>PocketSphinx parsing helpers for Supertoys deployments.</Description>
+    <Description>PocketSphinx parsing helpers and runtime packaging scaffolding for Supertoys deployments.</Description>
     <PackageTags>PocketSphinx;Speech;Supertoys</PackageTags>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <RepositoryType>git</RepositoryType>
@@ -22,5 +23,13 @@
     <None Include="README.md" Pack="true" PackagePath="\" />
     <None Include="LICENSE" Pack="true" PackagePath="\" />
     <None Include="supertoys.jpg" Pack="true" PackagePath="\" />
+    <None Include="buildTransitive/Supertoys.PocketSphinx.targets" Pack="true" PackagePath="buildTransitive/" />
+
+    <!-- Primary runtime target today; keep x64 slot for future assets -->
+    <None Include="runtimes/linux-arm64/native/**" Pack="true" PackagePath="runtimes/linux-arm64/native/" />
+    <None Include="runtimes/linux-x64/native/**" Pack="true" PackagePath="runtimes/linux-x64/native/" />
+
+    <!-- Shared models copied into consuming app output -->
+    <None Include="models/**" Pack="true" PackagePath="contentFiles/any/any/models/" PackageCopyToOutput="true" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,31 @@
+<Project>
+  <ItemGroup>
+    <SupertoysPocketSphinxModelFiles Include="$(MSBuildThisFileDirectory)..\contentFiles\any\any\models\**\*" />
+    <SupertoysPocketSphinxRuntimeFiles Include="$(MSBuildThisFileDirectory)..\runtimes\$(RuntimeIdentifier)\native\**\*" />
+  </ItemGroup>
+
+  <Target Name="SupertoysCopyPocketSphinxAssets" BeforeTargets="Build">
+    <Copy
+      SourceFiles="@(SupertoysPocketSphinxModelFiles)"
+      DestinationFiles="@(SupertoysPocketSphinxModelFiles->'$(OutDir)models\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+      Condition="'@(SupertoysPocketSphinxModelFiles)' != ''" />
+
+    <Copy
+      SourceFiles="@(SupertoysPocketSphinxRuntimeFiles)"
+      DestinationFiles="@(SupertoysPocketSphinxRuntimeFiles->'$(OutDir)runtimes\$(RuntimeIdentifier)\native\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+      Condition="'@(SupertoysPocketSphinxRuntimeFiles)' != '' and '$(RuntimeIdentifier)' != ''" />
+
+    <!-- NuGet extraction and file copies can drop executable bits on Unix -->
+    <Exec
+      Command="chmod +x &quot;$(OutDir)runtimes/$(RuntimeIdentifier)/native/pocketsphinx&quot;"
+      Condition="'$(RuntimeIdentifier)' != '' and '$(OS)' != 'Windows_NT' and Exists('$(OutDir)runtimes/$(RuntimeIdentifier)/native/pocketsphinx')"
+      ContinueOnError="WarnAndContinue" />
+
+    <Exec
+      Command="chmod +x &quot;$(OutDir)runtimes/$(RuntimeIdentifier)/native/pocketsphinx_batch&quot;"
+      Condition="'$(RuntimeIdentifier)' != '' and '$(OS)' != 'Windows_NT' and Exists('$(OutDir)runtimes/$(RuntimeIdentifier)/native/pocketsphinx_batch')"
+      ContinueOnError="WarnAndContinue" />
+  </Target>
+</Project>
