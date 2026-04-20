@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <AssemblyName>Supertoys.PocketSphinx</AssemblyName>
     <PackageId>Supertoys.PocketSphinx</PackageId>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Authors>The Cartheur Team</Authors>
     <Company>Cartheur Research</Company>
     <Description>PocketSphinx parsing helpers and runtime packaging scaffolding for Supertoys deployments.</Description>
@@ -25,7 +25,7 @@
     <None Include="supertoys.jpg" Pack="true" PackagePath="\" />
     <None Include="buildTransitive/Supertoys.PocketSphinx.targets" Pack="true" PackagePath="buildTransitive/" />
 
-    <!-- Primary runtime target today; keep x64 slot for future assets -->
+    <!-- Bundled Linux runtime targets -->
     <None Include="runtimes/linux-arm64/native/**" Pack="true" PackagePath="runtimes/linux-arm64/native/" />
     <None Include="runtimes/linux-x64/native/**" Pack="true" PackagePath="runtimes/linux-x64/native/" />
 

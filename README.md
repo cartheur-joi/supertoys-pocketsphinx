@@ -7,21 +7,21 @@ PocketSphinx 5 integration package for .NET:
 
 ## What Is Bundled
 
-- Runtime target shipped now: `linux-arm64`
+- Runtime targets shipped now: `linux-arm64`, `linux-x64`
 - Bundled executables:
 - `runtimes/linux-arm64/native/pocketsphinx`
 - `runtimes/linux-arm64/native/pocketsphinx_batch`
+- `runtimes/linux-x64/native/pocketsphinx`
+- `runtimes/linux-x64/native/pocketsphinx_batch`
 - Bundled English model set:
 - `models/en-us/en-us` (acoustic model directory)
 - `models/en-us/cmudict-en-us.dict`
 - `models/en-us/en-us.lm.bin`
 
-`linux-x64` folder exists for future support but does not yet ship runtime binaries.
-
 ## Requirements
 
 - .NET 9 (`TargetFramework: net9.0`)
-- For end-to-end recognition, run on a supported RID that has bundled runtime assets (`linux-arm64` today)
+- For end-to-end recognition, run on a supported RID that has bundled runtime assets (`linux-arm64` or `linux-x64`)
 
 ## Install
 
@@ -37,7 +37,7 @@ using Supertoys.PocketSphinx;
 var result = await PocketSphinxRunner.RecognizeFileAsync(new PocketSphinxRunnerOptions
 {
     InputPath = "/absolute/path/to/audio.raw", // or .wav supported by PocketSphinx CLI
-    RuntimeIdentifier = "linux-arm64"
+    RuntimeIdentifier = "linux-x64"
 });
 
 Console.WriteLine(result.Hypothesis);
@@ -86,7 +86,7 @@ The package includes `buildTransitive/Supertoys.PocketSphinx.targets`, which:
 ## Implementation Checklist (Human Or Agent)
 
 1. Add the package to your app.
-2. Build with `-r linux-arm64` (or run on linux-arm64 where RID resolves correctly).
+2. Build with `-r linux-x64` or `-r linux-arm64` (matching your deployment target).
 3. Call `PocketSphinxRunner.RecognizeFileAsync(...)` with an input audio path.
 4. Read `result.Hypothesis` and `result.Confidence`.
 5. If needed, pass custom model/runtime paths in options.
@@ -94,8 +94,8 @@ The package includes `buildTransitive/Supertoys.PocketSphinx.targets`, which:
 ## Troubleshooting
 
 - `PocketSphinx executable not found`:
-- Ensure app was built/published with `RuntimeIdentifier=linux-arm64`.
-- Ensure output contains `runtimes/linux-arm64/native/pocketsphinx`.
+- Ensure app was built/published with `RuntimeIdentifier=linux-x64` or `RuntimeIdentifier=linux-arm64`.
+- Ensure output contains `runtimes/<rid>/native/pocketsphinx`.
 - `Dictionary file not found` or `Language model file not found`:
 - Ensure output contains `models/en-us/...`.
 - Recognition returns empty text:
